@@ -1,0 +1,50 @@
+import math
+import numpy as np
+
+# Euler's method.
+# Returns approximate solution to x' = f(t,x(t))
+# t0 = initial time
+# x0 = initial condition for x
+# T  = end time
+# N  = number of timesteps
+
+def eulerintegrate(f,t0,x0,T,N):
+	x = np.zeros(N+1)
+	x[0] = x[0]
+	h = float(T-t0)/N
+
+	for n in range(N):
+		t = t0+n*h
+		x[n+1]=x[n]+h*f(t,x[n])
+	
+	return x
+
+# Specific example: 
+#
+# y' = 5-3*y**1/2
+# y(0) = 2
+#
+
+
+# define right-hand side function f = f(t,y)
+def f(t,y):
+     return 5-3*y**1/2
+
+# give initial condition and initial time
+t0 = 0
+y0 = 2
+
+# give end time 
+T = 0.5
+
+# give number of steps (and hence step size)
+N = 100000
+h = 0.1
+
+# compute y via Euler's method
+y = eulerintegrate(f,t0,y0,T,N)
+
+# print out the computed solution at t = T
+print 'y(',T,') =', y[N] 
+
+
